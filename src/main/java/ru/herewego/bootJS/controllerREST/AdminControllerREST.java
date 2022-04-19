@@ -1,6 +1,9 @@
 package ru.herewego.bootJS.controllerREST;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ru.herewego.bootJS.model.User;
 import ru.herewego.bootJS.service.UserService;
@@ -20,25 +23,29 @@ public class AdminControllerREST {
     private final UserService userService;
 
     @GetMapping("/admin")
-    public List<User> list() {
-        return userService.listUsers();
+    public ResponseEntity<List<User>> list() {
+        return new ResponseEntity<>(userService.listUsers(), HttpStatus.OK);
     }
 
     @DeleteMapping("/admin/{id}")
-    public String delete(@PathVariable("id") int id) {
+    public ResponseEntity<String> delete(@PathVariable("id") int id) {
         userService.deleteById(id);
-        return String.format("User with id = %d was deleted", id);
+        return new ResponseEntity<>(String.format("User with id = %d was deleted", id), HttpStatus.OK);
     }
 
     @PostMapping("/admin")
-    public User create(@RequestBody User user) {
+    public ResponseEntity<User> create(@RequestBody User user) {
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userService.add(user);
-        return user;
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PutMapping("/admin")
-    public User edit(@RequestBody User user) {
+    public ResponseEntity<User> edit(@RequestBody User user) {
+        if (!(user.getPassword().length() == 0)) {
+            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        }
         userService.update(user.getId(), user);
-        return user;
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

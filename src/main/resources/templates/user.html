@@ -34,21 +34,18 @@
 
 </head>
 <body>
-<div class="container-fluid upper-cont">
+<div class="container-fluid">
     <div class="row">
         <div class="col left text-left text-light">
-            <p>
-                <b class="font-weight-bold" th:text="${user.name}">username</b>
+            <p id="currentUserInfo">
+                <b id="currentUserName" class="font-weight-bold">username</b>
                 with roles:
-                <th:block th:each="role : ${user.roles}">
-                    <a th:text="${#strings.substringAfter(role.role, 'ROLE_')}">roles</a>
-                </th:block>
             </p>
         </div>
         <div class="col right text-right">
             <form id="logout" th:action="@{/logout}" method="POST">
             </form>
-            <button class="btn btn-default" type="submit" form="logout">Logout</button>
+            <button id="logoutButton" class="btn btn-default" type="submit" form="logout">Logout</button>
         </div>
     </div>
 </div>
@@ -60,7 +57,7 @@
                     <div sec:authorize="hasAuthority('ROLE_ADMIN')">
                         <a th:href="@{/api/users/admin}" class="nav-link">Admin</a>
                     </div>
-                    <a th:href="@{/api/users/user}" class="nav-link" th:classappend="active">User</a>
+                    <a class="nav-link active">User</a>
                 </li>
             </ul>
         </div>
@@ -81,14 +78,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <td th:text="${user.id}"></td>
-                        <td th:text="${user.name}"></td>
-                        <td th:text="${user.surname}"></td>
-                        <td>
-                            <th:block th:each="role : ${user.roles}">
-                                <a th:text="${#strings.substringAfter(role.role, 'ROLE_')}">roles</a>
-                            </th:block>
-                        </td>
+                        <td id="tdUserId"></td>
+                        <td id="tdUserName"></td>
+                        <td id="tdUserSurname"></td>
+                        <td id="tdUserRoles"></td>
                         </tbody>
                     </table>
                 </div>

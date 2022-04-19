@@ -8,9 +8,10 @@ import java.util.Objects;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "authorities")
+@NoArgsConstructor
 public class Role implements GrantedAuthority {
 
     @Id
@@ -24,10 +25,6 @@ public class Role implements GrantedAuthority {
     @Override
     public String getAuthority() {
         return role;
-    }
-
-    public Role(String role) {
-        this.role = role;
     }
 
     @Override

@@ -40,7 +40,9 @@ public class UserDaoImpl implements UserDao {
         userToBeChanged.setSurname(userChanged.getSurname());
         userToBeChanged.setId(userChanged.getId());
         userToBeChanged.setRoles(userChanged.getRoles());
-        userToBeChanged.setPassword(userChanged.getPassword());
+        if (!(userChanged.getPassword().length() == 0)) {
+            userToBeChanged.setPassword(userChanged.getPassword());
+        }
     }
 
     @Override

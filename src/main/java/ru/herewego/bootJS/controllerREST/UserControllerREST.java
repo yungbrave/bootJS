@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.herewego.bootJS.model.User;
 import ru.herewego.bootJS.service.UserService;
@@ -22,7 +21,7 @@ public class UserControllerREST {
     private final UserService userService;
 
     @GetMapping("/user")
-    public User user(Model model) {
-        return userService.getUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+    public ResponseEntity<User> user() {
+        return new ResponseEntity<>(userService.getUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()), HttpStatus.OK);
     }
 }
