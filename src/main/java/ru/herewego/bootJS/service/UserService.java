@@ -18,4 +18,5 @@ public interface UserService {
 
     User getUserByUsername(String username);
 
+    void setInitData();
 }

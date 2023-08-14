@@ -10,7 +10,7 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @Entity
-@Table(name = "authorities")
+@Table(name = "roles")
 @NoArgsConstructor
 public class Role implements GrantedAuthority {
 
@@ -21,6 +21,10 @@ public class Role implements GrantedAuthority {
 
     @Column(name = "authority")
     private String role;
+
+    public Role(String role) {
+        this.role = role;
+    }
 
     @Override
     public String getAuthority() {

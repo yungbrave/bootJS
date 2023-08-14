@@ -2,6 +2,8 @@ package ru.herewego.bootJS.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -36,12 +38,20 @@ public class User implements UserDetails {
     @JoinTable(name = "users_roles"
             , joinColumns = @JoinColumn(name = "user_id")
             , inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @Fetch(FetchMode.JOIN)
     private Set<Role> roles;
 
     public User(String name, String surname, String password) {
         this.name = name;
         this.surname = surname;
         this.password = password;
+    }
+
+    public User(String name, String surname, String password, Set<Role> roles) {
+        this.name = name;
+        this.surname = surname;
+        this.password = password;
+        this.roles = roles;
     }
 
     public void addRole(Role role) {

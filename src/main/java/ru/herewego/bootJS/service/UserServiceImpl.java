@@ -13,6 +13,7 @@ import ru.herewego.bootJS.model.Role;
 import ru.herewego.bootJS.model.User;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,5 +70,25 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User getUserByUsername(String username) {
         return userDao.getUserByUsername(username);
+    }
+
+    @Transactional
+    @Override
+    public void setInitData() {
+        Role userRole = new Role("ROLE_USER");
+        Role adminRole = new Role("ROLE_ADMIN");
+        userDao.add(new User("user",
+                "user@gmail.com",
+                "$2a$12$vSOELe0vyyH.tbMAtlcza.snVT24qZfM1oZaCdrp5bheIqqNR/nwy",
+                new HashSet<>() {{
+                    add(userRole);
+                }}));
+        userDao.add(new User("admin",
+                "admin@gmail.com",
+                "$2a$12$vSOELe0vyyH.tbMAtlcza.snVT24qZfM1oZaCdrp5bheIqqNR/nwy",
+                new HashSet<>() {{
+                    add(userRole);
+                    add(adminRole);
+                }}));
     }
 }

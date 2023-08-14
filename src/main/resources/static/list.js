@@ -245,11 +245,12 @@ function editOrDeleteUser(deleteOrEdit, chosenUserId) {
                 surname: surnameEdit.val(),
                 password: passwordEdit.val(),
                 roles: [
-                    chosenRole() === 0 ? adminRoleJSON : userRoleJSON
+                    chosenRole() === 0 ? userRoleJSON : adminRoleJSON
+
                 ],
                 enabled: true,
                 authorities: [
-                    chosenRole() === 0 ? adminRoleJSON : userRoleJSON
+                    chosenRole() === 0 ? userRoleJSON : adminRoleJSON
                 ],
                 username: nameEdit.val(),
                 credentialsNonExpired: true,
@@ -263,7 +264,7 @@ function editOrDeleteUser(deleteOrEdit, chosenUserId) {
                     <td id="idTd">${chosenUserId}</td>
                     <td id="nameTd">${nameEdit.val()}</td>
                     <td id="surnameTd">${surnameEdit.val()}</td>
-                    ` + rolePut([chosenRole() === 0 ? adminRoleJSON : userRoleJSON]) + `
+                    ` + rolePut([chosenRole() === 0 ? userRoleJSON : adminRoleJSON]) + `
                     <td>
                         <button id="editButton-${nameEdit.val()}" type="button" class="btn btn-primary">
                             Edit
@@ -303,11 +304,11 @@ function addNewUser() {
             surname: surnameAdd.val(),
             password: passwordAdd.val(),
             roles: [
-                chosenRole() === 0 ? adminRoleJSON : userRoleJSON
+                chosenRole() === 0 ? userRoleJSON : adminRoleJSON
             ],
             enabled: true,
             authorities: [
-                chosenRole() === 0 ? adminRoleJSON : userRoleJSON
+                chosenRole() === 0 ? userRoleJSON : adminRoleJSON
             ],
             username: nameAdd.val(),
             credentialsNonExpired: true,
